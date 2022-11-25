@@ -19,7 +19,6 @@ export class ListarJogoComponent implements OnInit {
       // Execução da requisição
       .subscribe({
         next: (jogos) => {
-          console.table(jogos);
           this.jogos = jogos;
         },
       });

@@ -5,7 +5,7 @@ using API_Copa.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace api.Controllers
+namespace API_Copa.Controllers
 {
     [ApiController]
     [Route("api/jogo")]
@@ -31,7 +31,7 @@ namespace api.Controllers
         public IActionResult Listar()
         {
             List<Jogo> jogos = _context.Jogos.Include(x => x.SelecaoA).Include(x => x.SelecaoB).ToList();
-            return jogos.Count != 0 ? Ok(jogos) : NotFound();
+            return Ok(jogos);
         }
     }
 }

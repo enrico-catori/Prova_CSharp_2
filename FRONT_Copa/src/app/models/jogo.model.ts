@@ -5,4 +5,8 @@ export interface Jogo {
   selecaoA?: Selecao;
   selecaoB?: Selecao;
   criadoEm?: string;
+  scoreTimeAId?: number;
+  scoreTimeBId?: number;
+  selecaoAId?: number;
+  selecaoBId?: number;
 }

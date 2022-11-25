@@ -7,8 +7,9 @@
   </tr>
   <tr *ngFor="let jogo of jogos">
     <td>{{ jogo.id }}</td>
-    <td>{{ jogo.selecaoA?.id }}</td>
-    <td>{{ jogo.selecaoB?.id }}</td>
+    <td>{{ jogo.selecaoAId }}</td>
+    <td>{{ jogo.selecaoBId }}</td>
     <td>{{ jogo.criadoEm }}</td>
+    <td><button id="btnPalpitar">Palpite</button></td>
   </tr>
 </table>

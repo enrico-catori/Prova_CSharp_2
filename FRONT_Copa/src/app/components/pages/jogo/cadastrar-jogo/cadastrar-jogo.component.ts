@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { Jogo } from "src/app/models/jogo.model";
 import { Selecao } from "src/app/models/selecao.model";
@@ -11,28 +12,36 @@ import { Selecao } from "src/app/models/selecao.model";
 })
 export class CadastrarJogoComponent implements OnInit {
 
-  selecoes!: Selecao[];
+  sel!: Selecao[];
   
-  selecaoA?: Selecao;
-  selecaoB?: Selecao;
+  selAId!: number;
+  selBId!: number;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, 
+    private router: Router, private _snackBar: MatSnackBar) { }
 
-  ngOnInit(): void {  }
-
-  cadastrar(): void {
-    let jogo : Jogo = {
-      selecaoA : this.selecaoA,
-      selecaoB : this.selecaoB,    
-      
-    };
-    console.log(jogo);
-
-    this.http.post<Jogo>("https://localhost:5001/api/jogo/cadastrar", jogo)
+  ngOnInit(): void {
+    this.http.
+    get<Selecao[]>("https://localhost:5001/api/selecao/listar")
     .subscribe({
-      next: (jogo) => {
-        this.router.navigate(["pages/jogo/listar"]);
+      next: (selecoes) => {
+        this.sel = selecoes;
       },
     });
+  }
+
+  cadastrar(): void {
+    let jogo: Jogo = {
+      selecaoA: this.sel.find(sel => sel.id == this.selAId),
+      selecaoB: this.sel.find(sel => sel.id == this.selBId)
+    }
+
+    this.http.post<Jogo>("https://localhost:5001/api/jogo/cadastrar", jogo)
+    .subscribe({next: (jogo) => {
+        this._snackBar.open("Cadastrado", "Ok", { });
+        this.router.navigate(["pages/jogo/listar"]);
+      },
+      error: (error) => { console.error("Erro"); }
+    })
   }
 }
