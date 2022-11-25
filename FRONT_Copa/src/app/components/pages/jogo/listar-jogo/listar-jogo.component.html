@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Selecao A</th>
+    <th>Selecao B</th>
+    <th>Criado em</th>
+  </tr>
+  <tr *ngFor="let jogo of jogos">
+    <td>{{ jogo.id }}</td>
+    <td>{{ jogo.selecaoA?.id }}</td>
+    <td>{{ jogo.selecaoB?.id }}</td>
+    <td>{{ jogo.criadoEm }}</td>
+  </tr>
+</table>
